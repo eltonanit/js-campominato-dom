@@ -3,24 +3,21 @@ document.getElementById('generateGrid').addEventListener('click', function () {
 
     const grid = document.getElementById('grid');
     grid.innerHTML = '';
+    const gameResult = document.getElementById('gameResult');
+    gameResult.innerHTML = '';
 
-    // Genero le celle
+    // Puliamo il contenitore prima di aggiungere nuove celle
+    gridContainer.innerHTML = '';
+
+    // Generiamo le 16 bombe
+    let bomba = generateBomba(100);
+    console.log("Bombe generate:", bomba);
+
+    let nobomba = 0;
+    let sibomba = false;
+
+    // Generiamo le 100 celle
     for (let i = 1; i <= 100; i++) {
-        const square = document.createElement('div');
-        square.className = 'square';
-        square.textContent = i;
-
-        // Aggiungiamo l'evento click alla cella con add event listener
-        square.addEventListener('click', function () {
-
-            // Colora la cella di azzurro
-            this.classList.toggle('active');
-
-            // Mostra il numero della cella in console
-            console.log('Cella cliccata:', i);
-        });
-
-        // Appendo  la cella al contenitore della griglia
-        grid.appendChild(square);
-    }
-});
+        const cell = document.createElement('div');
+        cell.className = 'cell';
+        cell.textContent = i;
