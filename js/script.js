@@ -21,3 +21,29 @@ document.getElementById('generateGrid').addEventListener('click', function () {
         const cell = document.createElement('div');
         cell.className = 'cell';
         cell.textContent = i;
+
+        // Aggiungo evento click alla cella
+        cell.addEventListener('click', function () {
+            if (sibomba) return;
+
+            if (bomba.includes(i)) {
+                this.classList.add('bomb');
+                console.log('Hai calpestato una bomba:', i);
+                sibomba = true;
+                gameResult.innerHTML = `<h3>Hai perso! Hai calpestato una bomba al numero ${i}. Punteggio: ${nobomba}</h3>`;
+            } else {
+                this.classList.add('active');
+                console.log('Cella sicura cliccata:', i);
+                nobomba++;
+
+                if (nobomba === (100 - bomba.length)) {
+                    sibomba = true;
+                    gameResult.innerHTML = `<h3>Hai vinto! Hai cliccato tutte le celle sicure. Punteggio: ${nobomba}</h3>`;
+                }
+            }
+        });
+
+        // Appendo la cella al contenitore della griglia
+        gridContainer.appendChild(cell);
+    }
+});
